@@ -15,10 +15,13 @@ title: Home
 
 <section class="card">
   <h2>Upcoming Tournaments</h2>
+
+  {% assign now_s = site.time | date: "%s" | plus: 0 %}
   <div class="grid card-list">
     {% assign upcoming = site.tournaments | sort: "start_date" %}
     {% for t in upcoming %}
-      {% if t.start_date and t.start_date >= site.time %}
+      {% assign start_s = t.start_date | date: "%s" | plus: 0 %}
+      {% if t.start_date and start_s >= now_s %}
       <article class="card" data-item data-index="{{ t.title }} {{ t.location }} {{ t.division }}">
         <h3 class="title"><a href="{{ t.url | relative_url }}">{{ t.title }}</a></h3>
         <p class="meta">
